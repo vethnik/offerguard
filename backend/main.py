@@ -12,6 +12,18 @@ import re
 
 pytesseract.pytesseract.tesseract_cmd = os.getenv("TESSERACT_PATH")
 app = FastAPI()
+origins = [
+    "http://localhost:5173",
+    "https://offerguard-backend.onrender.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Load ML model
 MODEL_PATH = os.path.join("ml", "fraud_model.pkl")
 VECTORIZER_PATH = os.path.join("ml", "vectorizer.pkl")
